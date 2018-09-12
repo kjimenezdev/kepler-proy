@@ -1,0 +1,118 @@
+
+# Logging Python
+
+
+## Basic classes
+* Loggers
+* Handlers
+* Filters
+* Formatters
+
+
+```logging.getLogger(name)```
+Retrieves the logger object
+Loggers can have descendants
+
+* Recomemended
+``` logging.getLogger(__name__)
+
+### class logging.Logger
+  **propagate**
+  if true, events logged to this logger will be passed to the handlers of higher level loggers
+  (default = true)
+
+  **setLevel**(level)
+  sets the limit for the logger to the level received as param
+
+  **isEnabledFor**(lvl)
+  If a message of lvl would be processed by the logger
+
+  **getEffectiveLevel()**
+  Effective level for this logger
+
+  **getChild**(suffix)
+  Returns a logger descendant to this logger
+
+  **debug**(msg, *args, **kwargs)
+  Logs a message with level DEBUG on the logger
+  * Can be formatted
+
+  **info** (msg, *args, **kwargs)
+  Logs a message with level INFo on the logger
+
+  **error** (msg, *args, **kwargs)
+  Logs a message with level ERROR on the logger
+
+  **critical**
+  **log**
+  **exception**
+
+  **addFilter**
+  Adds a filter to the logger
+
+  **removeFilter**
+  Removes a filter from the logger
+
+  **filter**
+  applies a filter to the logger
+
+  **addHandler**
+  Adds a Handler to the logger
+
+  **removeHandler**
+  Removes a handler from the logger
+
+  **findCaller**
+  Retrieves the caller's source filename and line number
+
+  **handle**
+  Handles a record by passing it to all hadlers associated with this logger
+
+  **makeRecord**
+   Factory method to create specialized log instances
+
+  **hasHandlers**
+  checks if the logger has any handlers configured
+
+  ### Logging Levels
+
+  LEVEL     |  VALUE
+  -------------------
+  CRITICAL  |   50
+  ERROR     |   40
+  WARNING   |   30
+  INFO      |   20
+  DEBUG     |   10
+  NOTSET    |   0
+
+  ## Handler Objects
+  ## Formatter Objects
+  ## Filter Objects
+  ## LogRecord Objects
+  ## LogRecord attributes
+  ## LoggerAdapter Objects
+
+  ## Thread Safety
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

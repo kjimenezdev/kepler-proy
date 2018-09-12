@@ -1,0 +1,33 @@
+# PyUnit
+
+### Purpose
+Unit testing is useful to idenfity bugs in early development stage of the application when bugs are less recurrent and less expensive to fix
+
+* Unit Test: Stripted code leve test designed to verify a small functionality or unit
+
+## Test-Driven Development TDD:
+First design Python Unit tests and only then carry on writing the code
+
+
+## Stubs and Mocks
+Stub: fill some dependency required for unit test to run correctly
+Mock: a fake object which run tests where they assert
+
+## Python Unit Testing Framework
+* PyUnit: fixtures, test cases, test suites and test runner for the automated testing of the code
+
+* Nose: Output capture, code coverage doctests
+
+* Doctest: Allows to test code by running samples and verifying that they return the expected results
+
+## PyUnit
+Key classes:
+* TestCase
+* TestSuite
+* TestLoader
+* TextTestRunner
+* TestResults
+
+
+
+

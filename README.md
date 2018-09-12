@@ -8,6 +8,7 @@ The general idea is to create a trivia app to cover some of the topics explained
 2. Python
 3. Flask
 4. Markup
+5. SqlAlchemy
 
 ## Indications
 ```
@@ -19,5 +20,5 @@ make trivia
 * Level 2
 * Level 3
 
-## Author 
+## Author
 Konrad Jimenez

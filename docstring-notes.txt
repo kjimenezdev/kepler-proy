@@ -1,0 +1,30 @@
+
+
+# Docstring is a string literal that occurs as the first statement in a module, function, class or method definition.
+
+## Two types of Docstrings
+1. String literals occuring after a simple assignment at the top level of a module, class or __init__method : "attribute dostrings"
+2. String literals immediately after another docstring: "additional docstrings"
+
+* Always use """ triple double quotes""
+* Use r"""raw tripple double quotes"" if using backslashes in docstrings
+* For Unicode docstrings use u"""Unicode triple-quoted strings"""
+
+### One-line Docstrings
+Should really fit one line.
+
+* Tripple quotes are used even though the string fits on one line cause it makes it easier to later expand it
+* The closing quotes are on the same line as the opening quotes
+* Theres no blank space before or after the docstring
+* The docstring is a phrase ending in a period. Is t[preescribes the function or methos's effect as a command
+---> "Do this, return that.
+* Should not be a signature iterating the function/method parameters
+
+
+### Multi-line Docstrings
+Consists on a summary line just like a one-line docstring followed by a blank line
+that contains more elaborate description
+
+
+
+

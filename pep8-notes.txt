@@ -1,0 +1,148 @@
+
+PEP 8:
+  Style Guidelines Python
+  Adopted from Python Style Guide Essay
+  PEP 257 --> Docstring Convention
+
+
+ * Importance of consistency
+
+
+Code Lay-out
+
+# Indentation
+Use 4 Spaces per indentation level
+
+
+# Tabs or spaces
+Prefer Spaces
+
+# Maximum Line Length
+Limit all lines to a maximum of 79 characters
+* Coments and docstrings to 72
+
+# Line Break before or after the binary operator
+Before
+
+# Blank lines
+* Surround top-level function and class definitions with two blank lines
+* Method definitions inside a class are surrounded by a single blank line
+* Use blank linkes in functions to indicate logical sections
+
+# Source File Enconding
+* always use uft-8(python 3) and  ascii (python 2)
+
+# Imports
+* Imports should usually be on separate lines
+* Imports are allways at the top of the file just after module comments and docstrings and before globals and constants
+* Order:
+1. Standard library imports
+2. Related third party imports
+3. Local application/library specific imports
+
+Add a blank line between each group of imports
+
+* Absolute imports are recommended
+* However relative imports are accepted especially when dealing with complex package layouts
+
+### Diference between Absolute, Implicit and Explicit Relative
+* Absolute:
+```from mypkg import sibling```
+
+* Explicit Relative:
+```from . import sibling```
+
+* Implicit Relative imports
+????
+
+* When importing a class from a class-containing module,
+it's usually okay to spell this:
+
+```from myclass import MyClass```
+```from foo.bar.yourclass import YourClass```
+
+If this spelling causes local name clashes, then spell them explicitly:
+
+```import myclass```
+```import foo.bar.yourclass```
+
+### Wildcard imports should be avoided
+
+
+# Module Level Dunder Names
+* Future imports must appear in the module before any other code except docstrings
+```
+"""This is the example module.
+
+This module does stuff.
+"""
+
+from __future__ import barry_as_FLUFL
+
+__all__ = ['a', 'b', 'c']
+__version__ = '0.1'
+__author__ = 'Cardinal Biggles'
+
+import os
+import sys
+```
+
+# String Quotes
+Single or double in Python but be consistent
+For triple-qupted strings always use double quote characters (PEP 257)
+
+# Whitespace in Expressions and Statements
+
+## Pet Peeves
+* Avoid extraneous whitespace after opening the parenthesis and before closing it
+* Before a trailing comman and a following close parenthesis
+* Immediately before a comma, semicolon, or colon
+* In slices when the colon acts like a binary operator -> uhave equal amounts on either side
+* In extended slice both colons must have the same amount of spacing applied
+* when the slice parameter is omitted, the space is omitted
+* Immediately before the open parenthesis that starts the argument list of a function call
+* Immediately before the open parenthesis that starts an indexing or slicing
+* More than one space around an assignment operator to align it with another
+
+
+# Other recomendations
+* Avoid traling whitespace anywhere
+* Always surround binary operators with a single space on either side
+* If operators with different priorities are used considder adding whitespace around the operators with the lowest priority
+* Don't use spaces around the = sign when used to indicate a keyword argument or a default parameter value
+
+* Function annotations:
+Use the normal rules for colons and always round the -> with spaces if present
+* When combining an argument annotation with a default value use spaces around the = sign
+* Compound statements are generally discouraged
+
+
+# When to Use Trailing Commas
+* Recommended to surround the latter in parenthesis
+* When trailing commas are redundant try adding each value on a line by itself always adding a trailing command and close the parenthesis/bracket/brace next line
+
+
+# Comments
+* Make a priority of keeping the comments up to date
+* Comments should be complete sentences. First word capitalized
+* Block comments -> one or more paragraphs. Each sentence ending in a period.
+* Use two spaces after a sentence ending period in multi-sentence comments
+* Follow String and White ***
+
+# Block Comments
+* Generally apply to some code that follows them and are indented to the same level as that code. Paragraphs inside a block comment are separated by a line containing a single #
+
+# Inline comments
+* Separated at least two spaces from the statement
+* Should start with a # and a single space
+* Unnecesary and distracting if they state the obvious
+
+# Documentation Strings
+* Write docstrings for all public modules, functions, classes and methods
+* Not necessary for non-public methods
+* After the def line
+
+
+
+
+
