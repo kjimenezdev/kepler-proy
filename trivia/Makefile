@@ -41,19 +41,23 @@ pylint:	## Runs pylint tests
 
 .PHONY: docker-build
 docker-build: ## Builds Docker app
-	docker build -t app .
+	docker build -t flaskdock .
 
 .PHONY: docker-run
 docker-run: ## Runs Docker app
-	docker run -p 80:5000 app
+	docker run -p 5000:80 flaskdock
 
 .PHONY: docker-bg-run
 docker-bg-run: ## Runs Docker app on background mode
-	docker run -d -p 5000 app
+	docker run -d -p 5000:80 flaskdock
 
 .PHONY: docker-stop
 docker-stop: ## Ends the docker process
 	docker container stop $@
+
+.PHONY: run
+run:
+	@bash runny.sh
 
 .PHONY: clean
 clean: ## Cleans all bynary files generated
