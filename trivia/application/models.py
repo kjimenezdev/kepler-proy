@@ -1,7 +1,7 @@
 """Models to allow data structure creation by sqlalchemy"""
 
 from flask_sqlalchemy import SQLAlchemy
-from extensions import DB, MA
+from application.extensions import DB, MA
 from flask_marshmallow import Marshmallow
 
 class User(DB.Model):

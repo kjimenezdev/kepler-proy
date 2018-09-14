@@ -3,25 +3,17 @@
 from flask import Flask, request, jsonify, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
-from models import User, UserSchema
+from application.models import User, UserSchema
+from application.extensions import DB
 
 USER_SCHEMA = UserSchema()
 USERS_SCHEMA = UserSchema(many=True)
 
 USER = Blueprint("user", __name__, url_prefix="/user")
 
-@USER.route("/", methods=["GET", "POST","PUT", "DELETE"])
+@USER.route("", methods=["POST", "GET"])
 def handle_user():
-
-    if request.method == "GET":
-        """ Retrieves all the stored users """
-        all_users = User.query.all()
-        result = USERS_SCHEMA.dump(all_users)
-        if not result.data:
-            return jsonify({"msg":"No data"}), 201
-        return jsonify(result.data), 200
-
-    elif request.method == "POST":
+    if request.method == "POST":
         """ Creates a new user from the provided params"""
         username = request.json["username"]
         password = request.json["password"]
@@ -36,6 +28,16 @@ def handle_user():
                 return jsonify({"msg":"Error with sql"}), 403
         else:
             return jsonify({"msg":"User already exists"}), 403
+
+    elif request.method == "GET":
+        """ Retrieves all the stored users """
+        all_users = User.query.all()
+        result = USERS_SCHEMA.dump(all_users)
+        if not result.data:
+            return jsonify({"msg":"No data"}), 201
+        return jsonify(result.data), 200
+
+
 
 @USER.route("/<int:user_id>", methods=["GET", "PUT", "DELETE"])
 def user_id_functions(user_id):

@@ -3,12 +3,11 @@ Basic REST Backend to handle Trivia data.
 """
 import os
 
-from user import USER
+from application.user import USER
 from flask import Flask
-from score import SCORE
-from index import BP
-
-from extensions import DB, MA
+from application.score import SCORE
+from application.index import BP
+from application.extensions import DB, MA
 
 def create_app():
     """Initializes the flask app"""
@@ -16,6 +15,7 @@ def create_app():
     register_config(app)
     register_blueprints(app)
     register_extensions(app)
+    register_commands(app)
     return app
 
 def register_config(app):
@@ -35,6 +35,12 @@ def register_extensions(app):
     """Registers app extensions"""
     DB.init_app(app)
     MA.init_app(app)
+
+def register_commands(app):
+    @app.cli.command()
+    def create_db():
+        # click.echo("Creates tables")
+        DB.create_all()
 
 if __name__ == "__main__":
     FLASK_APP = create_app()

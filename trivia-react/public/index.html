@@ -9,7 +9,7 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!-- <link rel="shortcut icon" href="PUBLIC_URL%/favicon.ico"> -->
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -19,7 +19,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Kepler Trivia</title>
+    <meta name="title" content="Kepler Trivia"/>
+    <meta name="description" content="Trivia App to practice all the concepts during Kepler On"/>
+    <meta property="og:title" content="Kepler Trivia" />
+    <meta property="og:description" content="Trivia App to practice all the concepts during Kepler On"/>
+    <meta property="og:image" content="http://www.keplergrp.com/wp-content/uploads/2015/12/keplerlogo.png" />
+    <link rel="shortcut icon" type="image/png/icon" href"http://www.keplergrp.com/favicon.ico"/>
   </head>
   <body>
     <noscript>
@@ -36,5 +42,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+      </body>
 </html>

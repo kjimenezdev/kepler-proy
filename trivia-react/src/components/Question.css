@@ -1,32 +1,32 @@
-.App {
+.Question {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
+.Question-logo {
+  animation: Question-logo-spin infinite 20s linear;
   height: 80px;
 }
 
-.App-logo-kepler {
+.Question-logo-kepler {
   height: 80px;
 }
 
-.App-header {
+.Question-header {
   background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
 }
 
-.App-title {
+.Question-title {
   font-size: 1.5em;
 }
 
-.App-intro {
+.Question-intro {
   font-size: large;
 }
 
-@keyframes App-logo-spin {
+@keyframes Question-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import QuestionOption from './QuestionOption.jsx';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<QuestionOption />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
