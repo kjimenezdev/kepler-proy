@@ -3,11 +3,11 @@ Basic REST Backend to handle Trivia data.
 """
 import os
 
-from application.user import USER
+from application.routes.user import USER
 from flask import Flask
-from application.score import SCORE
-from application.index import BP
-from application.extensions import DB, MA
+from application.routes.score import SCORE
+from application.routes.index import BP
+from application.utils.extensions import DB, MA
 
 def create_app():
     """Initializes the flask app"""
@@ -21,7 +21,7 @@ def create_app():
 def register_config(app):
     """Registers the configuration desired for the app"""
     basedir = os.path.abspath(os.path.dirname(__file__))
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "trivia.sqlite")
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "utils/trivia.sqlite")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
 

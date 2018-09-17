@@ -61,7 +61,8 @@ run:
 
 .PHONY: clean
 clean: ## Cleans all bynary files generated
-	rm *.pyc
+	find . -type f -name "*.py[co]" -delete
+	find . -type d -name "__pycache__" -delete
 
 .PHONY: hello
 hello: ## Simple metho to make sure make it's working

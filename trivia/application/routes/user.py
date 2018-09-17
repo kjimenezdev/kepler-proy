@@ -3,15 +3,15 @@
 from flask import Flask, request, jsonify, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
-from application.models import User, UserSchema
-from application.extensions import DB
+from application.models.models import User, UserSchema
+from application.utils.extensions import DB
 
 USER_SCHEMA = UserSchema()
 USERS_SCHEMA = UserSchema(many=True)
 
 USER = Blueprint("user", __name__, url_prefix="/user")
 
-@USER.route("", methods=["POST", "GET"])
+@USER.route("/", methods=["POST", "GET"])
 def handle_user():
     if request.method == "POST":
         """ Creates a new user from the provided params"""

@@ -1,12 +1,10 @@
-"""User endpoint"""
+"""Questions endpoint"""
 
-from flask import Blueprint
 from flask import Flask, request, jsonify, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
-from application.models import User, UserSchema
-from application.extensions import DB
-from application.models import UserScore, UserScoreSchema
+from application.utils.extensions import DB
+from application.models.models import UserScore, UserScoreSchema
 
 USER_SCORE_SCHEMA = UserScoreSchema()
 USER_SCORES_SCHEMA = UserScoreSchema(many=True)
