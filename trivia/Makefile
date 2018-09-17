@@ -1,5 +1,10 @@
 SHELL=/bin/bash
 
+.PHONY: all
+all:
+	@echo "Handle here the db creation"
+	python application/utils/create_db.py
+
 .PHONY: help
 help: ## Show make help
 	@IFS=$$'\n' ; \
@@ -61,8 +66,14 @@ run:
 
 .PHONY: clean
 clean: ## Cleans all bynary files generated
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+	@find . -type f -name "*.py[co]" -delete
+	@find . -type d -name "__pycache__" -delete
+	@echo "Clean clean."
+
+.PHONY: remove-db
+remove-db:
+	@rm application/utils/trivia.sqlite
+	@echo "Removed db"
 
 .PHONY: hello
 hello: ## Simple metho to make sure make it's working

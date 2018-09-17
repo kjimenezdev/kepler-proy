@@ -3,7 +3,7 @@
 from flask import Flask, request, jsonify, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
-from application.models.models import User, UserSchema
+from application.models.user import User, UserSchema
 from application.utils.extensions import DB
 
 USER_SCHEMA = UserSchema()
@@ -14,7 +14,7 @@ USER = Blueprint("user", __name__, url_prefix="/user")
 @USER.route("/", methods=["POST", "GET"])
 def handle_user():
     if request.method == "POST":
-        """ Creates a new user from the provided params"""
+        """Creates a new user from the provided params"""
         username = request.json["username"]
         password = request.json["password"]
         user = User.query.filter_by(username=username).first()
@@ -30,7 +30,7 @@ def handle_user():
             return jsonify({"msg":"User already exists"}), 403
 
     elif request.method == "GET":
-        """ Retrieves all the stored users """
+        """ Retrieves all the stored users"""
         all_users = User.query.all()
         result = USERS_SCHEMA.dump(all_users)
         if not result.data:
@@ -43,14 +43,14 @@ def handle_user():
 def user_id_functions(user_id):
 
     if request.method == "GET":
-        """ Retrieves a single user by id"""
+        """Retrieves a single user by id"""
         user = User.query.get(user_id)
         if not user:
             return jsonify({"msg":"No data"}), 201
         return USER_SCHEMA.jsonify(user), 200
 
     elif request.method == "PUT":
-        """ Updates a user by it"s id """
+        """Updates a user by it"s id"""
         user = User.query.get(user_id)
         if not user:
             return jsonify({"msg":"No data"}), 403
@@ -65,7 +65,7 @@ def user_id_functions(user_id):
             return jsonify({"msg":"Error with sql"}), 403
 
     elif request.method == "DELETE":
-        """ Deletes a user by it"s id """
+        """Deletes a user by it"s id"""
         user = User.query.get(user_id)
         if not user:
             return jsonify({"msg":"No data"}), 201
@@ -80,13 +80,14 @@ def user_id_functions(user_id):
 def user_login():
     """Authenticates the user by making sure parameters equal the saved user's parameters"""
     username = request.json["username"]
-    # password = request.json["password"]
+    password = request.json["password"]
     user = User.query.filter_by(username=username).first()
     if user:
-        ujson = USER_SCHEMA.jsonify(user)
-        # if ujson["password"] ==  password:
-        # return jsonify({"msg":"User does not exist"}), 201
-        return ujson, 200
-    # else:
+        # Validates user password
+        if user.verify_password(password):
+            ujson = USER_SCHEMA.jsonify(user)
+            return ujson, 200
+        else:
+            return jsonify({"msg":"Incorrect password"}), 403
     return jsonify({"msg":"User does not exist"}), 403
 

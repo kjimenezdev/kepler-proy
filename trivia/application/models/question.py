@@ -1,4 +1,4 @@
-"""Models to allow data structure creation by sqlalchemy"""
+"""Question model for SQLAlchemy"""
 
 from flask_sqlalchemy import SQLAlchemy
 from application.utils.extensions import DB, MA
@@ -8,6 +8,7 @@ class Question(DB.Model):
     """Question table structure."""
     id = DB.Column(DB.Integer, primary_key=True)
     content = DB.Column(DB.Text, unique=True)
+    options = DB.relationship("Option", backref="question", lazy=True)
 
     def __init__(self, content):
         self.content = content

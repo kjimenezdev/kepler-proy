@@ -7,6 +7,7 @@ from application.routes.user import USER
 from flask import Flask
 from application.routes.score import SCORE
 from application.routes.index import BP
+from application.routes.questions import QUESTION
 from application.utils.extensions import DB, MA
 
 def create_app():
@@ -15,7 +16,7 @@ def create_app():
     register_config(app)
     register_blueprints(app)
     register_extensions(app)
-    register_commands(app)
+    # register_commands(app)
     return app
 
 def register_config(app):
@@ -30,6 +31,7 @@ def register_blueprints(app):
     app.register_blueprint(USER)
     app.register_blueprint(SCORE)
     app.register_blueprint(BP)
+    app.register_blueprint(QUESTION)
 
 def register_extensions(app):
     """Registers app extensions"""
@@ -39,7 +41,6 @@ def register_extensions(app):
 def register_commands(app):
     @app.cli.command()
     def create_db():
-        # click.echo("Creates tables")
         DB.create_all()
 
 if __name__ == "__main__":
