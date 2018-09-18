@@ -9,7 +9,7 @@ import {
 } from 'semantic-ui-react'
 import MetaTags from 'react-meta-tags';
 import axios from 'axios';
-import Question from 'components/Question.jsx';
+import Question from './components/Question.jsx';
 
 class App extends Component {
 
@@ -17,11 +17,11 @@ class App extends Component {
     questions: []
   }
 
-
   componentDidMount(){
-    axios.get("http://127.0.0.1/question")
+    axios.get("http://127.0.0.1:5000/question/all")
       .then(res => {
-        const questions = res.data.data.children.map(obj => obj.data);
+        const questions = res.data.map(obj => obj);
+        console.log(questions);
         this.setState({questions});
       });
   }
@@ -52,7 +52,10 @@ class App extends Component {
         </Container>
         <Container>
           {this.state.questions.map(question =>
-          <Question value={question}></Question>
+        <Container style={{ marginTop: '7em' }} key={question.id}>
+          <Header as='h2'>Question {question.content} </Header>
+          <p>Trivia Question to practice all the concepts during Kepler Onboarding</p>
+        </Container>
           )}
 
         </Container>

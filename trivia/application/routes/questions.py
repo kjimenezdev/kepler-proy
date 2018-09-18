@@ -1,5 +1,8 @@
 """Questions endpoint"""
 
+import yaml
+import os
+
 from flask import Flask, request, jsonify, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
@@ -24,18 +27,16 @@ def handle_questions():
         """Creates a new question"""
         content = request.json["content"]
         idx_correct = request.json["idx_correct"]
-        new_question = Question(content, idx_correct)
-        try:
-            DB.session.add(new_question)
-            DB.session.commit()
-            return QUESTION_SCHEMA.jsonify(new_question)
-        except SQLAlchemyError:
-            return jsonify({"msg": "Error with sql"}), 403
+        question = Question(content, idx_correct).create()
+        if not question:
+            return jsonify({"msg": "Question already exists"}), 403
+        else:
+            return QUESTION_SCHEMA.jsonify(question)
 
     elif request.method == "GET":
         """ Retrieves all the questions"""
         all_questions = Question.query.all()
-        result = QUESTION_SCHEMA.dump(all_questions)
+        result = QUESTIONS_SCHEMA.dump(all_questions)
         if not result.data:
             return jsonify({"msg": "No data"}), 201
         return jsonify(result.data), 200
@@ -88,18 +89,15 @@ def handle_options():
         question_id = request.json["question_id"]
         content = request.json["content"]
         position = request.json["position"]
-        new_option = Option(question_id, content, idx_correct)
-        try:
-            DB.session.add(new_option)
-            DB.session.commit()
-            return OPTION_SCHEMA.jsonify(new_option)
-        except SQLAlchemyError:
+        option = Option(question_id, content, position).create()
+        if not option:
             return jsonify({"msg": "Error with sql"}), 403
+        else:
+            return OPTION_SCHEMA.jsonify(option)
 
     elif request.method == "GET":
         """ Retrieves all the options"""
-        all_questions = Question.query.all()
-        result = OPTIONS_SCHEMA.dump(all_questions)
+        result = OPTIONS_SCHEMA.dump(Option.query.all())
         if not result.data:
             return jsonify({"msg": "No data"}), 201
         return jsonify(result.data), 200
@@ -126,6 +124,7 @@ def handle_single_option(option_id):
             option.idx_correct = idx_correct
             DB.session.commit()
             return jsonify(option), 200
+
         except SQLAlchemyError:
             return jsonify({"msg":"Error with sql"}), 403
 
@@ -151,3 +150,70 @@ def options_by_question(question_id):
         if not result.data:
             return jsonify({"msg": "No data"}), 201
         return jsonify(result.data), 200
+
+
+@QUESTION.route("/load/<string:file_name>", methods=["GET"])
+def load_from_file(file_name):
+    """Loads a the questions from the filename received as param"""
+    if request.method == "GET":
+        try:
+            basedir = os.path.abspath(os.path.dirname(__file__))
+            full_path = os.path.join(basedir, file_name)
+            file = open(full_path, "r")
+            try:
+                questions = yaml.load(file)
+                # questions = data_loaded['questions']
+                if not questions:
+                    return jsonify({"msg": "Voce partiu meu coracao"}), 201
+                else:
+                    # Drop the existent questions
+                    Question.query.delete()
+                    Option.query.delete()
+                    for question in questions:
+                        """Creates a new question"""
+                        content = question["content"]
+                        idx_correct = question["correct_idx"]
+                        new_question = Question(content, idx_correct).create()
+                        question_id = new_question.id
+                        options = question['options']
+                        for opt in options:
+                            cont = opt["content"]
+                            pos = opt["position"]
+                            Option(question_id, cont, pos).create()
+
+                    return jsonify({"msg": "All right all right baby"}), 201
+
+            except yaml.YAMLError as exc:
+                print(exc)
+                return jsonify({"msg": "Error parsing file"}), 201
+        except FileNotFoundError:
+             return jsonify({"msg": "File not found"}), 201
+
+@QUESTION.route("/all", methods=["GET"])
+def retrieve_all():
+    """ Retrieves all the questions joined the options"""
+    if request.method == "GET":
+        questions = Question.query.all()
+        result = QUESTIONS_SCHEMA.dump(questions)
+        if not result.data:
+            return jsonify({"msg": "No data"}), 201
+        return jsonify(result.data), 200
+
+
+@QUESTION.route("/backup/<string:file_name>", methods=["GET"])
+def backup_to_file(file_name):
+    """Backups the questions from the filename received as param"""
+    if request.method == "GET":
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        full_path = os.path.join(basedir, file_name)
+        file = open(full_path, "w")
+        questions = Question.query.all()
+        result = QUESTIONS_SCHEMA.dump(questions)
+        try:
+            yaml.dump(result.data, file, default_flow_style=False)
+            return jsonify({"msg": "En todas"}), 200
+        except yaml.YAMLError as exc:
+            print(exc)
+            return jsonify({"msg": "Error parsing file"}), 402
+        except FileNotFoundError:
+            return jsonify({"msg": "File not found"}), 403

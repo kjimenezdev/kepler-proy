@@ -9,6 +9,7 @@ from application.routes.score import SCORE
 from application.routes.index import BP
 from application.routes.questions import QUESTION
 from application.utils.extensions import DB, MA
+from flask_cors import CORS, cross_origin
 
 def create_app():
     """Initializes the flask app"""
@@ -25,7 +26,6 @@ def register_config(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "utils/trivia.sqlite")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
-
 def register_blueprints(app):
     """Registers the desired routes"""
     app.register_blueprint(USER)
@@ -37,6 +37,7 @@ def register_extensions(app):
     """Registers app extensions"""
     DB.init_app(app)
     MA.init_app(app)
+    cors = CORS(app, resources={r"*": {"origins": "*"}})
 
 def register_commands(app):
     @app.cli.command()
