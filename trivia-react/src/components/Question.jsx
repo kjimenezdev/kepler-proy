@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import './Question.css';
 import {
   Container,
-  Dropdown,
   Header,
-  Image,
-  Menu
 } from 'semantic-ui-react'
 import MetaTags from 'react-meta-tags';
 

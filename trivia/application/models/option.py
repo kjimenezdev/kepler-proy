@@ -7,9 +7,10 @@ from sqlalchemy.exc import SQLAlchemyError
 
 class Option(DB.Model):
     """Question option table structure."""
-    question_id = DB.Column(DB.Integer, DB.ForeignKey("question.id"), primary_key=True)
+    id = DB.Column(DB.Integer, primary_key=True, autoincrement=True)
+    question_id = DB.Column(DB.Integer, DB.ForeignKey("question.id"))
     content = DB.Column(DB.Text)
-    position = DB.Column(DB.Integer, primary_key=True)
+    position = DB.Column(DB.Integer)
 
     def __init__(self, question_id, content, position):
         self.question_id = question_id
@@ -30,5 +31,5 @@ class OptionSchema(MA.Schema):
     class Meta:
         """Fields to expose"""
         model = Option
-        fields = ("question_id", "content", "position")
+        fields = ("id", "question_id", "content", "position")
 
