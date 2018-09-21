@@ -36,8 +36,9 @@ def user_rest():
 
     elif request.method == "GET":
         """ Retrieves all the user scores """
-        all_scores = Score.query.all()
-        result = SCORES_SCHEMA.dump(all_scores)
+        # all_scores = Score.query.all()
+        all_scores = DB.session.query(User.id, User.username, Score.score, Score.created).all()
+        result = USER_SCORES_SCHEMA.dump(all_scores)
         if not result.data:
             return jsonify({"msg": "No data"}), 201
         return jsonify(result.data), 200
@@ -45,6 +46,8 @@ def user_rest():
 @SCORE.route("/<int:user_id>", methods=["GET"])
 def get_scores_by_user(user_id):
     """ Retrieves all the scores by user id"""
+    print(user_id);
+    # all_scores = DB.session.query(User.id, User.username, Score.score, Score.created).filter_by(user_id=user_id).all()
     all_scores = DB.session.query(User.id, User.username, Score.score, Score.created).filter_by(id=user_id).all()
     print(str(all_scores))
     result = USER_SCORES_SCHEMA.dump(all_scores)
