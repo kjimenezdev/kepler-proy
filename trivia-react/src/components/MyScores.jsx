@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './Leaderboard.css';
+import './MyScores.css';
 import {Container, Header, Table, Label} from 'semantic-ui-react'
 import axios from 'axios';
 
-class Leaderboard extends Component {
+class MyScores extends Component {
 
   state = {
     leaderboard:[],
@@ -28,9 +28,9 @@ class Leaderboard extends Component {
 
   render() {
     return (
-      <div className="Leaderboard">
+      <div className="MyScores">
         <Container style={{marginTop: '1em', marginBottom:'2em', textAlign:'center'}}>
-          <Header as='h1'>Leaderboard</Header>
+          <Header as='h1'>MyScores</Header>
           <p>All of my scores</p>
           <Table celled>
             <Table.Header>
@@ -64,4 +64,4 @@ class Leaderboard extends Component {
 }
 }
 
-export default Leaderboard;
+export default MyScores;

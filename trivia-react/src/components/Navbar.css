@@ -1,32 +1,32 @@
-.Trivia {
-  /* text-align: center; */
+.Navbar {
+  text-align: center;
 }
 
-.Trivia-logo {
-  animation: Trivia-logo-spin infinite 20s linear;
+.Navbar-logo {
+  animation: Navbar-logo-spin infinite 20s linear;
   height: 80px;
 }
 
-.Trivia-logo-kepler {
+.Navbar-logo-kepler {
   height: 80px;
 }
 
-.Trivia-header {
+.Navbar-header {
   background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
 }
 
-.Trivia-title {
+.Navbar-title {
   font-size: 1.5em;
 }
 
-.Trivia-intro {
+.Navbar-intro {
   font-size: large;
 }
 
-@keyframes Trivia-logo-spin {
+@keyframes Navbar-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
