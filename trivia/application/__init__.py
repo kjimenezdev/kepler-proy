@@ -39,7 +39,7 @@ def register_extensions(app):
     DB.init_app(app)
     MA.init_app(app)
     cors = CORS(app, resources={r"*": {"origins": "*"}})
-    MIGRATE = Migrate(app, db)
+    MIGRATE = Migrate(app, DB)
 
 def register_commands(app):
     @app.cli.command()
