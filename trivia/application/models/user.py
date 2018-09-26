@@ -10,6 +10,7 @@ class User(DB.Model):
     """User table structure."""
     id = DB.Column(DB.Integer, primary_key=True, autoincrement=True)
     username = DB.Column(DB.String(80), unique=True)
+    email = DB.Column(DB.String(80), unique=True)
     password = DB.Column(DB.String(120))
     scores = DB.relationship("Score", backref="user", lazy=True)
 
@@ -27,4 +28,4 @@ class UserSchema(MA.Schema):
     """Fields to convert to JSON."""
     class Meta:
         """Fields to expose"""
-        fields = ("id", "username")
+        fields = ("id", "email", "username")

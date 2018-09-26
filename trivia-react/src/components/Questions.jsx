@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import './Leaderboard.css';
+import './Questions.css';
 import {Container, Header, Table, Label} from 'semantic-ui-react'
 import axios from 'axios';
 import Moment from 'moment';
 
-class Leaderboard extends Component {
+class Questions extends Component {
 
   state = {
     leaderboard:[],
   }
 
   fetchLeaderboard(){
-    axios.get("http://127.0.0.1:5000/score")
+    axios.get("http://127.0.0.1:5000/score/1")
       .then(res => {
         const leaderboard = res.data.map(obj => obj);
         console.log(leaderboard);
@@ -23,7 +23,6 @@ class Leaderboard extends Component {
       });
   }
 
-
   componentDidMount(){
     this.fetchLeaderboard();
   }
@@ -31,10 +30,10 @@ class Leaderboard extends Component {
 
   render() {
     return (
-      <div className="Leaderboard">
+      <div className="Questions">
         <Container style={{marginTop: '1em', marginBottom:'2em', textAlign:'center'}}>
-          <Header as='h1'>Leaderboard</Header>
-          <p>All time scores</p>
+          <Header as='h1'>Questions</Header>
+          <p>All scores made by $USERNAME</p>
           <Table celled>
             <Table.Header>
               <Table.Row>
@@ -69,4 +68,4 @@ class Leaderboard extends Component {
 }
 }
 
-export default Leaderboard;
+export default Questions;

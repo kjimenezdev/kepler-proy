@@ -7,6 +7,8 @@ class Register extends Component {
 
 
 
+
+
   render() {
     return (
       <div className='login-form'>
@@ -20,7 +22,7 @@ class Register extends Component {
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
             <Image src='http://www.keplergrp.com/wp-content/uploads/2015/12/keplerlogo.png'/>
-            <Header as='h1' textAlign='center'><b>Trivia</b>
+            <Header as='h1' textAlign='center'><b>Register</b>
             </Header>
             <Form size='large'>
               <Segment stacked>

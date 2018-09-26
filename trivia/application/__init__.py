@@ -10,6 +10,7 @@ from application.routes.index import BP
 from application.routes.questions import QUESTION
 from application.utils.extensions import DB, MA
 from flask_cors import CORS, cross_origin
+from flask_migrate import Migrate
 
 def create_app():
     """Initializes the flask app"""
@@ -38,6 +39,7 @@ def register_extensions(app):
     DB.init_app(app)
     MA.init_app(app)
     cors = CORS(app, resources={r"*": {"origins": "*"}})
+    MIGRATE = Migrate(app, db)
 
 def register_commands(app):
     @app.cli.command()

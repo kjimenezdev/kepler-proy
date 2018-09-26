@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './MyScores.css';
 import {Container, Header, Table, Label} from 'semantic-ui-react'
 import axios from 'axios';
+import Moment from 'moment';
 
 class MyScores extends Component {
 
@@ -10,28 +11,29 @@ class MyScores extends Component {
   }
 
   fetchLeaderboard(){
-    axios.get("http://127.0.0.1:5000/score")
+    axios.get("http://127.0.0.1:5000/score/1")
       .then(res => {
-        const questions = res.data.map(obj => obj);
-        console.log(questions);
-        if (!questions.length) {
+        const leaderboard = res.data.map(obj => obj);
+        console.log(leaderboard);
+        if (!leaderboard.length) {
           alert("Server error");
         } else {
-          let current = questions[0];
-          console.log(current);
-          this.setState({questions});
-          this.setState({current});
-          console.log(this.state);
+          this.setState({leaderboard});
         }
       });
   }
+
+  componentDidMount(){
+    this.fetchLeaderboard();
+  }
+
 
   render() {
     return (
       <div className="MyScores">
         <Container style={{marginTop: '1em', marginBottom:'2em', textAlign:'center'}}>
           <Header as='h1'>MyScores</Header>
-          <p>All of my scores</p>
+          <p>All scores made by $USERNAME</p>
           <Table celled>
             <Table.Header>
               <Table.Row>
@@ -45,14 +47,16 @@ class MyScores extends Component {
               {this.state.leaderboard.map((score, index) =>
               <Table.Row>
                 <Table.Cell>
+                  {index === 0 &&
                   <Label ribbon>Best</Label>
+                  }
                   {score.username}
                 </Table.Cell>
                 <Table.Cell>
                   {score.score}
                 </Table.Cell>
                 <Table.Cell>
-                  {score.date}
+                  {Moment(score.created).format('d/MM/YYYY')}
                 </Table.Cell>
               </Table.Row>
               )}

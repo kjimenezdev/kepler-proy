@@ -15,6 +15,9 @@ class Navbar extends Component {
             </Menu.Item>
             <Menu.Item as={Link} to='/trivia/leaderboard'>Leaderboard</Menu.Item>
             <Menu.Item as={Link} to='/trivia/my-scores'>My Scores</Menu.Item>
+            <Menu.Item as={Link} to='/trivia/questions'>All Questions</Menu.Item>
+            <Menu.Item position="right"> Logout </Menu.Item>
+
           </Container>
         </Menu>
       </div>

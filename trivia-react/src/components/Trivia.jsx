@@ -64,7 +64,6 @@ class Trivia extends Component {
 
   componentDidMount(){
     this.fetchQuestions();
-    // this.fetchLeaderboard();
   }
 
   submitScore(){

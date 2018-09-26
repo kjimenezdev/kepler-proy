@@ -1,0 +1,32 @@
+.Questions {
+  text-align: center;
+}
+
+.Questions-logo {
+  animation: Questions-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.Questions-logo-kepler {
+  height: 80px;
+}
+
+.Questions-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.Questions-title {
+  font-size: 1.5em;
+}
+
+.Questions-intro {
+  font-size: large;
+}
+
+@keyframes Questions-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -1,54 +1,69 @@
 import React, { Component } from 'react';
 import './Login.css';
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {Grid, Segment, Message, Header, Image, Button, Form} from 'semantic-ui-react'
 import axios from 'axios';
 
 class Login extends Component {
 
+  state = {
+      username:"",
+      password:""
+  }
+
   constructor(props){
     super(props);
 
-    this.state={
-      username:"",
-      password:""
-    }
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.goHome =  this.goHome.bind(this);
+  }
+
+
+  goHome(){
+    this.props.history.push('/trivia/home');
   }
 
   doLogin(user){
     axios.post("http://127.0.0.1:5000/user/auth", user)
       .then(res => {
-        const user = res.data.map(obj => obj);
+        const user = res.data;
         console.log(user);
         if (!user) {
           alert("Server error");
         } else {
-          localStorage.setItem(user ,'user')
+          let jsonuser = JSON.stringify(user);
+          localStorage.setItem('user', jsonuser)
           let savedUser = localStorage.getItem('user');
           console.log(savedUser)
-          // let current = questions[0];
-          // console.log(current);
-          // this.setState({questions});
-          // this.setState({current});
-          // console.log(this.state);
+          this.goHome();
         }
+
       });
   }
 
-
-  handleChange(key, e) {
-  //   // this.setState({key: event.target.value});
-  //   console.log(event.target.value);
-    // console.log(key);
-    //
+  handleUsernameChange(e) {
+    let username = e.target.value;
+    this.setState({username});
   }
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.user + "\n" + this.state.password);
-    event.preventDefault();
+
+  handlePasswordChange(e) {
+    let password = e.target.value;
+    this.setState({password});
+  }
+
+  handleSubmit(e) {
+    let username = this.state.username;
+    let password = this.state.password;
+    console.log(username);
+    console.log(password);
+    // alert('A name was submitted: ' + this.state.username + "\n" + this.state.password);
+    let user = {username:username, password:password};
+    this.doLogin(user);
+    // event.preventDefault();
   }
 
   render() {
@@ -64,9 +79,9 @@ class Login extends Component {
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
             <Image src='http://www.keplergrp.com/wp-content/uploads/2015/12/keplerlogo.png'/>
-            <Header as='h1' textAlign='center'><b>Trivia</b>
+            <Header as='h1' textAlign='center'><b>Login</b>
             </Header>
-            <Form size='large' onSubmit={this.handleSubmit}>
+            <Form size='large'>
               <Segment stacked>
                 <Form.Input
                   fluid
@@ -74,7 +89,7 @@ class Login extends Component {
                   iconPosition='left'
                   placeholder='Username'
                   value={this.state.value}
-                  onChange={this.handleChange.bind(this, 'username')}
+                  onChange={this.handleUsernameChange.bind(this)}
                 />
                 <Form.Input
                   fluid
@@ -83,10 +98,11 @@ class Login extends Component {
                   placeholder='Password'
                   type='password'
                   value={this.state.value}
-                  onChange={this.handleChange.bind(this, 'password')}
+                  onChange={this.handlePasswordChange.bind(this)}
                 />
 
-              <Button color='orange' fluid size='large' type="submit">
+              <Button color='orange' fluid size='large'
+                onClick={this.handleSubmit.bind(this)}>
                 Login
               </Button>
             </Segment>
@@ -102,4 +118,4 @@ class Login extends Component {
 }
 }
 
-export default Login;
+export default withRouter(Login);

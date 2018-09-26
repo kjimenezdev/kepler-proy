@@ -5,11 +5,18 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 from application.models.user import User, UserSchema
 from application.utils.extensions import DB
+from application.utils.smtp import SMTPConstants
 
 USER_SCHEMA = UserSchema()
 USERS_SCHEMA = UserSchema(many=True)
 
 USER = Blueprint("user", __name__, url_prefix="/user")
+
+
+# @USER.route("/", methods=["GET"])
+# def test_mail ():
+
+
 
 @USER.route("/", methods=["POST", "GET"])
 def handle_user():
