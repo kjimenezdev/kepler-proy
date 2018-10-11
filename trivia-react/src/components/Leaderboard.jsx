@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Leaderboard.css';
-import {Container, Header, Table, Label} from 'semantic-ui-react'
+import {Container, Header, Table} from 'semantic-ui-react'
 import axios from 'axios';
 import Moment from 'moment';
 
@@ -46,11 +46,8 @@ class Leaderboard extends Component {
 
             <Table.Body>
               {this.state.leaderboard.map((score, index) =>
-              <Table.Row>
+                <Table.Row key={index}>
                 <Table.Cell>
-                  {index === 0 &&
-                  <Label ribbon>Best</Label>
-                  }
                   {score.username}
                 </Table.Cell>
                 <Table.Cell>

@@ -7,8 +7,8 @@ import axios from 'axios';
 class Login extends Component {
 
   state = {
-      username:"",
-      password:""
+    username:"",
+    password:""
   }
 
   constructor(props){
@@ -23,7 +23,7 @@ class Login extends Component {
 
 
   goHome(){
-    this.props.history.push('/trivia/home');
+    this.props.history.push('/home');
   }
 
   doLogin(user){
@@ -34,13 +34,38 @@ class Login extends Component {
         if (!user) {
           alert("Server error");
         } else {
-          let jsonuser = JSON.stringify(user);
-          localStorage.setItem('user', jsonuser)
+          let jsonUser = JSON.stringify(user);
+          localStorage.setItem('user', jsonUser);
           let savedUser = localStorage.getItem('user');
           console.log(savedUser)
           this.goHome();
         }
+      }).catch((error) => {
+        // Error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          if (error.response.status === 403)
+            alert("The entered user does not exist")
+          else
+            alert("Server error")
 
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+          alert("Server error")
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+          alert("Error")
+        }
+        console.log(error.config);
+        alert("Error")
       });
   }
 
@@ -58,12 +83,8 @@ class Login extends Component {
   handleSubmit(e) {
     let username = this.state.username;
     let password = this.state.password;
-    console.log(username);
-    console.log(password);
-    // alert('A name was submitted: ' + this.state.username + "\n" + this.state.password);
     let user = {username:username, password:password};
     this.doLogin(user);
-    // event.preventDefault();
   }
 
   render() {
@@ -88,7 +109,6 @@ class Login extends Component {
                   icon='user'
                   iconPosition='left'
                   placeholder='Username'
-                  value={this.state.value}
                   onChange={this.handleUsernameChange.bind(this)}
                 />
                 <Form.Input
@@ -97,7 +117,6 @@ class Login extends Component {
                   iconPosition='left'
                   placeholder='Password'
                   type='password'
-                  value={this.state.value}
                   onChange={this.handlePasswordChange.bind(this)}
                 />
 

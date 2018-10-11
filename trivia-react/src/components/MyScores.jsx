@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import './MyScores.css';
-import {Container, Header, Table, Label} from 'semantic-ui-react'
+import {Container, Header, Table} from 'semantic-ui-react'
 import axios from 'axios';
 import Moment from 'moment';
 
 class MyScores extends Component {
 
   state = {
-    leaderboard:[],
+    leaderboard:[]
   }
 
   fetchLeaderboard(){
-    axios.get("http://127.0.0.1:5000/score/1")
-      .then(res => {
+
+    let savedUser = localStorage.getItem('user');
+    let jsonUser = JSON.parse(savedUser);
+    axios.get("http://127.0.0.1:5000/score/" + jsonUser.id)
+      .then(res => {""
         const leaderboard = res.data.map(obj => obj);
         console.log(leaderboard);
         if (!leaderboard.length) {
@@ -33,7 +36,7 @@ class MyScores extends Component {
       <div className="MyScores">
         <Container style={{marginTop: '1em', marginBottom:'2em', textAlign:'center'}}>
           <Header as='h1'>MyScores</Header>
-          <p>All scores made by $USERNAME</p>
+          <p>All scores made by me</p>
           <Table celled>
             <Table.Header>
               <Table.Row>
@@ -45,11 +48,8 @@ class MyScores extends Component {
 
             <Table.Body>
               {this.state.leaderboard.map((score, index) =>
-              <Table.Row>
+              <Table.Row key={index}>
                 <Table.Cell>
-                  {index === 0 &&
-                  <Label ribbon>Best</Label>
-                  }
                   {score.username}
                 </Table.Cell>
                 <Table.Cell>

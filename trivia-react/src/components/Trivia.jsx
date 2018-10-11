@@ -18,7 +18,6 @@ class Trivia extends Component {
     let curr_idx = this.state.curr_idx;
     let questions = this.state.questions;
     questions[curr_idx].user_choice = idx;
-    // console.log(questions[curr_idx].user_choice);
     this.setState({questions});
   }
 
@@ -67,8 +66,12 @@ class Trivia extends Component {
   }
 
   submitScore(){
+   let savedUser = localStorage.getItem('user');
+    console.log(savedUser)
+
     let score = this.state.score;
-    axios.post("http://127.0.0.1:5000/score", score)
+    let scoreObject = {score: score, user_id: savedUser.id};
+    axios.post("http://127.0.0.1:5000/score/", scoreObject)
       .then(res => {
         const questions = res.data.map(obj => obj);
         console.log(questions);
